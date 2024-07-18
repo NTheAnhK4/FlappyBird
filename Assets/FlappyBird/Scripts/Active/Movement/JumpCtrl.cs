@@ -7,10 +7,11 @@ public class JumpCtrl : ComponentBehavior
 {
     [SerializeField] protected CircleCollider2D cCollider2D;
     [SerializeField] protected Rigidbody2D rb;
-    [SerializeField] protected float jumpForce = 80f;
+    [SerializeField] protected float jumpForce = 50f;
     [SerializeField] protected float prePosY;
     [SerializeField] protected float curPosY;
-   
+    [SerializeField] protected float maxHeight = 18f;
+    [SerializeField] protected float minHeight = -19f;
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -71,8 +72,16 @@ public class JumpCtrl : ComponentBehavior
     public void Jumping()
     {
         rb.AddForce(Vector2.up * jumpForce);
+        
     }
 
+    public void ChangePos()
+    {
+        Vector3 pos = transform.position;
+        pos.y = Mathf.Min(pos.y, maxHeight);
+        pos.y = Mathf.Max(pos.y, minHeight);
+        transform.position = pos;
+    }
   
     
 }

@@ -7,23 +7,30 @@ public class PlayerCtrl : ComponentBehavior
 {
     [SerializeField] private JumpCtrl _jumpCtrl;
     
+   
+    
     protected override void LoadComponent()
     {
         base.LoadComponent();
         this.LoadJump();
     }
 
+    
     protected virtual void LoadJump()
     {
         if(_jumpCtrl != null) return;
         _jumpCtrl = transform.GetComponent<JumpCtrl>();
         Debug.Log(transform.name + " Load Jump successful");
     }
+    
     private void Update()
     {
+        _jumpCtrl.ChangePos();
         if(Input.GetKeyDown(KeyCode.Space))
            _jumpCtrl.Jumping();
+       
     }
+    
 
    
 }

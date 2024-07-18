@@ -9,12 +9,14 @@ public abstract class AbstractShooting : ComponentBehavior
     [SerializeField] protected float coolDown = 0f;
     [SerializeField] protected string bulletName;
     [SerializeField] protected Quaternion quaternion;
+    [SerializeField] protected string source;
     protected override void ResetValue()
     {
         base.ResetValue();
         this.ResetBulletName();
         this.ResetQuaternion();
         this.ResetTimeShoot();
+        this.ResetSource();
     }
 
     private void Update()
@@ -32,7 +34,8 @@ public abstract class AbstractShooting : ComponentBehavior
     {
         if(coolDown < timeShoot) return;
        
-        BulletSpawner.Instance.Spawn(bulletName, transform.position, quaternion);
+        BulletCtrl ctrl = BulletSpawner.Instance.Spawn(bulletName, transform.position, quaternion).GetComponent<BulletCtrl>();
+        ctrl.Source = source;
         coolDown = 0f;
     }
 
@@ -42,4 +45,5 @@ public abstract class AbstractShooting : ComponentBehavior
     }
     protected abstract void ResetBulletName();
     protected abstract void ResetQuaternion();
+    protected abstract void ResetSource();
 }

@@ -20,4 +20,9 @@ public class BirdShooting : AbstractShooting
     {
         this.timeShoot = 0.2f;
     }
+
+    protected override void ResetSource()
+    {
+        this.source = "Player";
+    }
 }

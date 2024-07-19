@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public abstract class DamageReceiver : ComponentBehavior
 {
+    
+    
     [SerializeField] protected BoxCollider2D boxCollider2D;
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected float maxHp;
@@ -13,10 +15,12 @@ public abstract class DamageReceiver : ComponentBehavior
     protected override void LoadComponent()
     {
         base.LoadComponent();
+        
         this.LoadBoxCollider();
         this.LoadRigid();
     }
 
+    
     protected virtual void LoadBoxCollider()
     {
         if (this.boxCollider2D != null) return;
@@ -51,8 +55,9 @@ public abstract class DamageReceiver : ComponentBehavior
 
     protected virtual void ResetMaxHp()
     {
-        
     }
+
+   
 
     protected void OnEnable()
     {
@@ -68,6 +73,8 @@ public abstract class DamageReceiver : ComponentBehavior
             OnDead();
         }
     }
+
+    
 
     protected virtual void OnDead()
     {

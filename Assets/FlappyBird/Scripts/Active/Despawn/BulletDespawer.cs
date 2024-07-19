@@ -6,7 +6,7 @@ public class BulletDespawer : DespawnByTime
 {
     protected override void ResetTimeDespawn()
     {
-        this.timeDespawn = 3f;
+        this.timeDespawn = 1.5f;
     }
 
     public override void DespawnObject()

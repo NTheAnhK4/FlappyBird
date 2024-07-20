@@ -18,7 +18,7 @@ public abstract class AbstractShooting : ComponentBehavior
         this.ResetQuaternion();
         this.ResetTimeShoot();
         this.ResetSource();
-        this.ResetBulletLevel();
+        this.ResetBulletLevel(bulletLevel);
     }
 
     private void Update()
@@ -52,7 +52,7 @@ public abstract class AbstractShooting : ComponentBehavior
         
     }
 
-    public abstract void ResetBulletLevel();
+    public abstract void ResetBulletLevel(int bulletLevel);
     protected abstract void ResetBulletName();
     protected abstract void ResetQuaternion();
     protected abstract void ResetSource();

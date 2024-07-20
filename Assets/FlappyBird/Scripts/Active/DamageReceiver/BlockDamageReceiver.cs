@@ -8,13 +8,15 @@ public class BlockDamageReceiver : DamageReceiver
     [SerializeField] protected SpriteRenderer sr;
     [SerializeField] protected BlockData data;
     [SerializeField] protected int blockIndex;
+   
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
         this.LoadData();
         this.LoadSprite();
     }
-
+    
     protected virtual void LoadData()
     {
         if (data != null) return;
@@ -43,6 +45,8 @@ public class BlockDamageReceiver : DamageReceiver
 
     protected override void OnDead()
     {
+        float add = (float)(blockIndex + 1);
+        this.PostEvent(EventID.On_Player_Add_EXP,add);
         sr.sprite = data.blockDataList[blockIndex].spritesList[0];
         BlockSpawner.Instance.DespawnObject(transform);
     }
@@ -71,4 +75,6 @@ public class BlockDamageReceiver : DamageReceiver
             OnDead();
         }
     }
+
+   
 }

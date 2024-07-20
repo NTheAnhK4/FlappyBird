@@ -5,6 +5,12 @@ using UnityEngine;
 public class BirdShooting : AbstractShooting
 {
     [SerializeField] protected BirdCtrl birdCtrl;
+    protected override void Awake()
+    {
+        base.Awake();
+        this.AddListener(EventID.On_Player_Level_Change,param=>ResetBulletLevel((int)param));
+    }
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -39,7 +45,7 @@ public class BirdShooting : AbstractShooting
         this.source = "Player";
     }
 
-    public override void ResetBulletLevel()
+    public override void ResetBulletLevel(int param)
     {
         this.bulletLevel = birdCtrl.BirdLevel;
     }

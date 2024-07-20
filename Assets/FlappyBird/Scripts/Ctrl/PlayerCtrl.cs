@@ -9,6 +9,12 @@ public class PlayerCtrl : BirdCtrl
     [SerializeField] private JumpCtrl _jumpCtrl;
     [SerializeField] private BirdShooting birdShooting;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        this.AddListener(EventID.On_Block_Destroy, param => AddLevel((int)param));
+    }
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -38,9 +44,10 @@ public class PlayerCtrl : BirdCtrl
        
     }
 
-    public override void ResetBirdLevel()
+    public virtual void AddLevel(int num)
     {
-        base.ResetBirdLevel();
-        birdShooting.ResetBulletLevel();
+        this.birdLevel+= num;
+        this.PostEvent(EventID.On_Player_Level_Change, this.birdLevel);
     }
+   
 }

@@ -11,11 +11,8 @@ public class BulletImpact : ComponentBehavior
     [SerializeField] protected Rigidbody2D rb;
     protected DamageSender damageSender;
     [SerializeField] protected float damage = 1f;
-    protected override void Awake()
-    {
-        base.Awake();
-        damageSender = new DamageSender(damage);
-    }
+
+    
 
     protected override void LoadComponent()
     {
@@ -59,6 +56,19 @@ public class BulletImpact : ComponentBehavior
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.gravityScale = 0;
     }
+
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        this.ResetDamage();
+    }
+
+    public virtual void ResetDamage()
+    {
+        this.damage = bulletCtrl.Damage;
+        damageSender = new DamageSender(damage);
+    }
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {

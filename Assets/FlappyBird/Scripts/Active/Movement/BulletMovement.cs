@@ -4,9 +4,24 @@ using UnityEngine;
 
 public class BulletMovement : MoveHorizontal
 {
-    protected override void ResetSpeed()
+    [SerializeField] protected BulletCtrl bulletCtrl;
+    protected override void LoadComponent()
     {
-        this.speed = 40f;
+        base.LoadComponent();
+        this.LoadCtrl();
+    }
+
+    protected virtual void LoadCtrl()
+    {
+        if (bulletCtrl != null) return;
+        bulletCtrl = transform.parent.GetComponent<BulletCtrl>();
+        if(bulletCtrl != null)
+            Debug.Log(transform.parent.name + " " + transform.name + " Load Ctrl successful");
+    }
+
+    public override void ResetSpeed()
+    {
+        this.speed = bulletCtrl.Speed;
     }
 
     protected override void ResetDirection()

@@ -1,11 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class DamageSender 
 {
-    private float _damage = 1;
+    private float _damage;
 
+    public float Damage
+    {
+        get => _damage;
+        set => _damage = value;
+    }
     public DamageSender(float damage)
     {
         _damage = damage;

@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class BirdShooting : AbstractShooting
 {
+    [SerializeField] protected BirdCtrl birdCtrl;
+    protected override void LoadComponent()
+    {
+        base.LoadComponent();
+        this.LoadCtrl();
+    }
+
+    protected virtual void LoadCtrl()
+    {
+        if(birdCtrl != null) return;
+        birdCtrl = transform.parent.GetComponent<BirdCtrl>();
+        if(birdCtrl != null) Debug.Log(transform.parent.name + " " + transform.name + " Load Ctrl successful");
+    }
     
 
     protected override void ResetBulletName()
@@ -24,5 +37,10 @@ public class BirdShooting : AbstractShooting
     protected override void ResetSource()
     {
         this.source = "Player";
+    }
+
+    public override void ResetBulletLevel()
+    {
+        this.bulletLevel = birdCtrl.BirdLevel;
     }
 }

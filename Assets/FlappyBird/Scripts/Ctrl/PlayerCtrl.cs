@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(JumpCtrl))]
-public class PlayerCtrl : ComponentBehavior
+public class PlayerCtrl : BirdCtrl
 {
+    
     [SerializeField] private JumpCtrl _jumpCtrl;
-    
-   
-    
+    [SerializeField] private BirdShooting birdShooting;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
         this.LoadJump();
+        this.LoadAttack();
     }
 
     
@@ -22,7 +23,13 @@ public class PlayerCtrl : ComponentBehavior
         _jumpCtrl = transform.GetComponent<JumpCtrl>();
         Debug.Log(transform.name + " Load Jump successful");
     }
-    
+
+    protected virtual void LoadAttack()
+    {
+        if (birdShooting != null) return;
+        birdShooting = transform.GetComponentInChildren<BirdShooting>();
+        Debug.Log(transform.name + " LoadAttack successful");
+    }
     private void Update()
     {
         _jumpCtrl.ChangePos();
@@ -30,7 +37,10 @@ public class PlayerCtrl : ComponentBehavior
            _jumpCtrl.Jumping();
        
     }
-    
 
-   
+    public override void ResetBirdLevel()
+    {
+        base.ResetBirdLevel();
+        birdShooting.ResetBulletLevel();
+    }
 }

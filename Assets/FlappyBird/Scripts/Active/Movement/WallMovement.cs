@@ -9,7 +9,7 @@ public class WallMovement : MoveHorizontal
         this.direction = Vector3.left;
     }
 
-    protected override void ResetSpeed()
+    public override void ResetSpeed()
     {
         this.speed = 6f;
     }

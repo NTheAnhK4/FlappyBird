@@ -23,7 +23,7 @@ public class MoveHorizontal : ComponentBehavior
         this.direction = Vector3.right;
     }
 
-    protected virtual void ResetSpeed()
+    public virtual void ResetSpeed()
     {
         this.speed = 50; 
     }

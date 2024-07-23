@@ -7,6 +7,7 @@ public class JumpCtrl : ComponentBehavior
 {
     [SerializeField] protected CircleCollider2D cCollider2D;
     [SerializeField] protected Rigidbody2D rb;
+    [SerializeField] protected AudioSource jumpSound;
     [SerializeField] protected float jumpForce = 50f;
     [SerializeField] protected float prePosY;
     [SerializeField] protected float curPosY;
@@ -19,6 +20,7 @@ public class JumpCtrl : ComponentBehavior
         this.LoadRigid();
         this.ChangeColliderInfor();
         this.ChangeRidbodyInfor();
+        this.LoadSound();
     }
 
     protected override void Awake()
@@ -51,6 +53,12 @@ public class JumpCtrl : ComponentBehavior
         
     }
 
+    protected virtual void LoadSound()
+    {
+        if (jumpSound != null) return;
+        jumpSound = transform.GetComponent<AudioSource>();
+        Debug.Log(transform.name + " Load Jump sound successful");
+    }
     private void Update()
     {
         curPosY = transform.position.y;
@@ -72,7 +80,7 @@ public class JumpCtrl : ComponentBehavior
     public void Jumping()
     {
         rb.AddForce(Vector2.up * jumpForce);
-        
+        jumpSound.Play();
     }
 
     public void ChangePos()

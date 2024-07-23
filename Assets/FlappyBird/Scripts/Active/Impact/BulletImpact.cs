@@ -73,7 +73,7 @@ public class BulletImpact : ComponentBehavior
     private void OnTriggerEnter2D(Collider2D other)
     {
         damageSender.SendDamage(other.transform);
-        if (!other.CompareTag(bulletCtrl.Source))
+        if (!other.CompareTag(bulletCtrl.Source) && !other.CompareTag("Coin"))
             BulletSpawner.Instance.DespawnObject(transform.parent);
             
     }

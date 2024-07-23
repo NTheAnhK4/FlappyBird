@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BlockDamageReceiver : DamageReceiver
@@ -8,13 +10,14 @@ public class BlockDamageReceiver : DamageReceiver
     [SerializeField] protected SpriteRenderer sr;
     [SerializeField] protected BlockData data;
     [SerializeField] protected int blockIndex;
-   
+    [SerializeField] protected AudioSource hitBlock;
 
     protected override void LoadComponent()
     {
         base.LoadComponent();
         this.LoadData();
         this.LoadSprite();
+        this.LoadSound();
     }
     
     protected virtual void LoadData()
@@ -43,6 +46,13 @@ public class BlockDamageReceiver : DamageReceiver
         rb.gravityScale = 0;
     }
 
+    protected virtual void LoadSound()
+    {
+        if (hitBlock != null) return;
+        hitBlock = transform.GetComponentInChildren<AudioSource>();
+        if(hitBlock != null) Debug.Log(transform.name + " Load Sound succesful");
+    }
+   
     protected override void OnDead()
     {
         float add = (float)(blockIndex + 1);
@@ -76,5 +86,9 @@ public class BlockDamageReceiver : DamageReceiver
         }
     }
 
-   
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.CompareTag("Bullet"))
+            hitBlock.Play();
+    }
 }

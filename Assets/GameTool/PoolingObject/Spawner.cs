@@ -115,6 +115,16 @@ public class Spawner<T> : ComponentBehavior
         return newPrefab;
     }
 
+    public virtual Transform SpawnRandomObject(Vector3 position)
+    {
+        int pos = Random.Range(0, prefabList.Count);
+        Transform newPrefab = GetObjectFromPool(prefabList[pos]);
+        newPrefab.SetParent(holders);
+        newPrefab.SetPositionAndRotation(position,newPrefab.rotation);
+        newPrefab.gameObject.SetActive(true);
+        return newPrefab;
+    }
+   
     public virtual void DespawnObject(Transform obj)
     {
         obj.gameObject.SetActive(false);

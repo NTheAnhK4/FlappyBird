@@ -8,5 +8,6 @@ public enum EventID
     On_Player_Add_EXP,
     On_Player_HP_Change,
     On_Player_Dead,
-    On_Block_Destroy
+    On_Block_Destroy,
+    On_Player_Gain_Coin
 }

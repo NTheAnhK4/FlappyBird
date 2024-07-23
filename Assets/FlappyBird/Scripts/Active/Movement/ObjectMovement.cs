@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallMovement : MoveHorizontal
+public class ObjectMovement : MoveHorizontal
 {
     protected override void ResetDirection()
     {

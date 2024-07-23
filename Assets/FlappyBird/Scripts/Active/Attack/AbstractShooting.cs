@@ -36,11 +36,15 @@ public abstract class AbstractShooting : ComponentBehavior
     {
         if(coolDown < timeShoot) return;
        
-        BulletCtrl ctrl = BulletSpawner.Instance.Spawn(bulletName, transform.position, quaternion).GetComponent<BulletCtrl>();
-        ResetBulletInfor(ctrl);
+        Shooting();
         coolDown = 0f;
     }
 
+    protected virtual void Shooting()
+    {
+        BulletCtrl ctrl = BulletSpawner.Instance.Spawn(bulletName, transform.position, quaternion).GetComponent<BulletCtrl>();
+        ResetBulletInfor(ctrl);
+    }
     protected virtual void ResetBulletInfor(BulletCtrl ctrl)
     {
         ctrl.Source = source;

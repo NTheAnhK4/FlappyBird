@@ -5,6 +5,7 @@ using UnityEngine;
 public class BirdShooting : AbstractShooting
 {
     [SerializeField] protected BirdCtrl birdCtrl;
+    [SerializeField] protected AudioSource shootSound;
     protected override void Awake()
     {
         base.Awake();
@@ -15,6 +16,7 @@ public class BirdShooting : AbstractShooting
     {
         base.LoadComponent();
         this.LoadCtrl();
+        this.LoadSound();
     }
 
     protected virtual void LoadCtrl()
@@ -23,8 +25,13 @@ public class BirdShooting : AbstractShooting
         birdCtrl = transform.parent.GetComponent<BirdCtrl>();
         if(birdCtrl != null) Debug.Log(transform.parent.name + " " + transform.name + " Load Ctrl successful");
     }
-    
 
+    protected void LoadSound()
+    {
+        if (shootSound != null) return;
+        shootSound = transform.GetComponent<AudioSource>();
+        Debug.Log(transform.name + " Load Shoot Sound successful");
+    }
     protected override void ResetBulletName()
     {
         this.bulletName = "Green Laser";
@@ -48,5 +55,11 @@ public class BirdShooting : AbstractShooting
     public override void ResetBulletLevel(int param)
     {
         this.bulletLevel = birdCtrl.BirdLevel;
+    }
+
+    protected override void Shooting()
+    {
+        base.Shooting();
+        shootSound.Play();
     }
 }
